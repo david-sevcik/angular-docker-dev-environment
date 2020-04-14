@@ -16,3 +16,11 @@ services:
       - ./tslint.json:/usr/src/app/tslint.json
       - ./package.json:/usr/src/app/package.json
     entrypoint: ng serve --host 0.0.0.0 --poll 1
+  seed:
+    image: node:lts
+    working_dir: "/usr/src/seed"
+    volumes:
+      - ./:/usr/src/seed_output
+    entrypoint: >
+      bash -c "npm i @angular/cli <<< N && npx ng new AngularTestApp2 --skipInstall --skipGit --routing=true --style=less && 
+             mv `ls -d */ | grep -v node_modules | xargs -I {} find {} -mindepth 1 -maxdepth 1` /usr/src/seed_output"
