@@ -10,17 +10,17 @@ services:
       NODE_ENV: development
     volumes:
       - ~/.gitconfig:/etc/gitconfig
-      - ./src:/usr/src/app/src:cached
-      - ./e2e:/usr/src/app/e2e:cached
-      - ./tsconfig.json:/usr/src/app/tsconfig.json
-      - ./tslint.json:/usr/src/app/tslint.json
-      - ./package.json:/usr/src/app/package.json
+      - ${working_dir}/src:/usr/src/app/src:cached
+      - ${working_dir}/e2e:/usr/src/app/e2e:cached
+      - ${working_dir}/tsconfig.json:/usr/src/app/tsconfig.json
+      - ${working_dir}/tslint.json:/usr/src/app/tslint.json
+      - ${working_dir}/package.json:/usr/src/app/package.json
     entrypoint: ng serve --host 0.0.0.0 --poll 1
   seed:
     image: node:lts
     working_dir: "/usr/src/seed"
     volumes:
-      - ./:/usr/src/seed_output
+      - ${working_dir}/:/usr/src/seed_output
     entrypoint: >
-      bash -c "npm i @angular/cli <<< N && npx ng new AngularTestApp2 --skipInstall --skipGit --routing=true --style=less && 
+      bash -c "npm i @angular/cli <<< N && npx ng new ${APP_NAME} --skipInstall --skipGit --routing=true --style=less && 
              mv `ls -d */ | grep -v node_modules | xargs -I {} find {} -mindepth 1 -maxdepth 1` /usr/src/seed_output"
