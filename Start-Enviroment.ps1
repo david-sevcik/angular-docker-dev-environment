@@ -7,4 +7,4 @@ if($app_dir -eq "")
 
 $Env:APP_DIR = $app_dir
 
-docker-compose -f $PSScriptRoot\docker-compose.yml up --build
+docker-compose -f $PSScriptRoot\docker-compose.yml up -d --build

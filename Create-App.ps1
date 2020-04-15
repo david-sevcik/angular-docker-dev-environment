@@ -8,4 +8,4 @@ if($app_dir -eq "")
 $Env:APP_NAME = $app_name
 $Env:APP_DIR = $app_dir
 
-docker-compose -f $PSScriptRoot\docker-compose.yml run seed
+docker-compose -f $PSScriptRoot\docker-compose.seed.yml run seed
